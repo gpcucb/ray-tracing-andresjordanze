@@ -1,7 +1,5 @@
 class Rgb
-  attr_accessor :r
-  attr_accessor :g
-  attr_accessor :b
+  attr_accessor :r, :g, :b
 
   def initialize(r,g,b)
     @r = r.to_f

@@ -1,7 +1,5 @@
 class Vector
-  attr_accessor :x
-  attr_accessor :y
-  attr_accessor :z
+  attr_accessor :x, :y, :z
 
   def initialize(x,y,z)
     @x = x.to_f
@@ -29,15 +27,15 @@ class Vector
   end
 
   # Producto vectorial
-  def vectorProduct(vector)
-    i = (@y * vector.z) - (@z * vector.y)
-    j = (@z * vector.x) - (@x * vector.z)
-    k = (@x * vector.y) - (@y * vector.x)
-    return Vector.new(i, j, k)
+  def vector_product(vector)
+    x = (@y * vector.z) - (@z * vector.y)
+    y = (@z * vector.x) - (@x * vector.z)
+    z = (@x * vector.y) - (@y * vector.x)
+    return Vector.new(x, y, z)
   end
 
   # Producto escalar
-  def scalarProduct(vector)
+  def scalar_product(vector)
     i = @x * vector.x
     j = @y * vector.y
     k = @z * vector.z
