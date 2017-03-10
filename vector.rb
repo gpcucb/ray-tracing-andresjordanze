@@ -36,9 +36,17 @@ class Vector
 
   # Producto escalar
   def scalar_product(vector)
-    i = @x * vector.x
-    j = @y * vector.y
-    k = @z * vector.z
-    return (i + j + k).to_f
+    x = @x * vector.x
+    y = @y * vector.y
+    z = @z * vector.z
+    return (x + y + z).to_f
+  end
+
+  # Producto vector por número
+  def num_product(num)
+    x = @x * num
+    y = @y * num
+    z = @z * num
+    return Vector.new(x, y, z)
   end
 end
