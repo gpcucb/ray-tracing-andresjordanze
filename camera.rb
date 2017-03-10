@@ -1,12 +1,14 @@
 require_relative 'vector.rb'
 
 class Camera
-  attr_accessor :e, :center, :up
+  attr_accessor :e, :center, :up, :fov, :df
 
-  def initialize(e,center,up)
+  def initialize(e,center,up,fov,df)
     @e = e#vector
     @center = center#vector
     @up = up#vector
+    @fov = fov.to_f#scalar
+    @df = df.to_f#scalar
   end
 
   # Cálculo del vector w
@@ -34,6 +36,18 @@ class Camera
 
   # Cálculo de la dirección del rayo
   def ray_direction(i, j, nx, ny)
-    #homework
+    t = @df * Math::tan(@fov/2).to_f
+    b = -t
+    r = (((nx.to_f * t) / ny.to_f)).to_f
+    l = -r
+
+    u = l + ((r - l) * (i + 0.5))/nx
+    v = b + ((t - b) * (j + 0.5))/ny
+
+    dw = w_vector.num_product(-@df)
+    uu = u_vector(w_vector).num_product(u)
+    vv = v_vector(w_vector, u_vector(w_vector)).num_product(v)
+
+    return (dw.plus(uu)).plus(vv)
   end
 end
