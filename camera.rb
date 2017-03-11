@@ -13,7 +13,7 @@ class Camera
 
   # Cálculo del vector w
   def w_vector
-    d = @e.minus(@center)#why?
+    d = @center.minus(@e)#why? Ans: Book page 73
     x = d.x/d.mod
     y = d.y/d.mod
     z = d.z/d.mod
@@ -38,7 +38,7 @@ class Camera
   def ray_direction(i, j, nx, ny)
     t = @df * Math::tan(@fov/2).to_f
     b = -t
-    r = (((nx.to_f * t) / ny.to_f)).to_f
+    r = (((nx * t) / ny)).to_f
     l = -r
 
     u = l + ((r - l) * (i + 0.5))/nx
