@@ -29,7 +29,7 @@ class Vector
   # Producto vectorial
   def vector_product(vector)
     x = (@y * vector.z) - (@z * vector.y)
-    y = (@z * vector.x) - (@x * vector.z)
+    y = -((@x * vector.z) - (@z * vector.x))
     z = (@x * vector.y) - (@y * vector.x)
     return Vector.new(x, y, z)
   end
