@@ -7,7 +7,7 @@ class Camera
     @e = e#vector
     @center = center#vector
     @up = up#vector
-    @fov = fov.to_f#scalar
+    @fov = ((fov * Math::PI)/180).to_f#why? convert degrees to radians
     @df = df.to_f#scalar
   end
 
@@ -17,11 +17,11 @@ class Camera
     x = d.x/d.mod
     y = d.y/d.mod
     z = d.z/d.mod
-    return Vector.new(x, y, z)
+    return Vector.new(-x, -y, -z)
   end
 
-  # Cálculo del vector w
-  def u_vector(w_vector)
+  # Cálculo del vector u
+  def u_vector()
     prod = @up.vector_product(w_vector)
     x = prod.x/prod.mod
     y = prod.y/prod.mod
@@ -29,8 +29,8 @@ class Camera
     return Vector.new(x, y, z)
   end
 
-  # Cálculo del vector w
-  def v_vector(w_vector, u_vector)
+  # Cálculo del vector v
+  def v_vector()
     return w_vector.vector_product(u_vector)
   end
 
@@ -45,8 +45,8 @@ class Camera
     v = b + ((t - b) * (j + 0.5))/ny
 
     dw = w_vector.num_product(-@df)
-    uu = u_vector(w_vector).num_product(u)
-    vv = v_vector(w_vector, u_vector(w_vector)).num_product(v)
+    uu = u_vector.num_product(u)
+    vv = v_vector.num_product(v)
 
     return (dw.plus(uu)).plus(vv)
   end
