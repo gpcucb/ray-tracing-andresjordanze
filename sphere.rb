@@ -5,7 +5,7 @@ class Sphere
   attr_accessor :position, :radius
 
   def initialize(position, radius)
-    @position = position
+    @position = position #center(c)
     @radius = radius.to_f
   end
 
@@ -30,11 +30,11 @@ class Sphere
 
     success = false
 
-    if ((t0 > 0.1) && (t0 < t)) 
+    if ((t0 > 0.0) && (t0 < t))
       t = t0
       success = true
     end
-    if ((t1 > 0.1) && (t1 < t)) 
+    if ((t1 > 0.0) && (t1 < t))
       t = t1
       success = true
     end
