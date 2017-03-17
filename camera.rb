@@ -17,7 +17,7 @@ class Camera
     x = d.x/d.mod
     y = d.y/d.mod
     z = d.z/d.mod
-    return Vector.new(-x, -y, -z)
+    return Vector.new(-x, -y, -z)#why -w? Ans: Book pag 74
   end
 
   # Cálculo del vector u
@@ -36,18 +36,18 @@ class Camera
 
   # Cálculo de la dirección del rayo
   def ray_direction(i, j, nx, ny)
-    t = @df * Math::tan(@fov/2).to_f
+    t = @df * Math::tan(@fov/2).to_f#why? Ans: Book page 157
     b = -t
-    r = (((nx * t) / ny)).to_f
+    r = (((nx * t) / ny)).to_f#why? Ans: Book page 157
     l = -r
 
-    u = l + ((r - l) * (i + 0.5))/nx
-    v = b + ((t - b) * (j + 0.5))/ny
+    u = l + ((r - l) * (i + 0.5))/nx#why? Ans: Book page 75
+    v = b + ((t - b) * (j + 0.5))/ny#why? Ans: Book page 75
 
     dw = w_vector.num_product(-@df)
     uu = u_vector.num_product(u)
     vv = v_vector.num_product(v)
 
-    return (dw.plus(uu)).plus(vv)
+    return (dw.plus(uu)).plus(vv)#why? Ans: Book page 76
   end
 end
