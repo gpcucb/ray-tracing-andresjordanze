@@ -42,7 +42,7 @@ class Renderer
     init_gl
     at_exit do
       puts 'Saving file'
-      save_image('raytracing.png')
+      save_image(file_name)
     end
     glutMainLoop
   end
