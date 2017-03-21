@@ -2,11 +2,12 @@ require_relative 'vector.rb'
 require_relative 'intersection.rb'
 
 class Sphere
-  attr_accessor :position, :radius
+  attr_accessor :position, :radius, :color
 
-  def initialize(position, radius)
+  def initialize(position, radius, color)
     @position = position #center(c)
     @radius = radius.to_f
+    @color = color
   end
 
   def intersection?(ray, t)
