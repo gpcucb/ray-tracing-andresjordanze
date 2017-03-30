@@ -2,12 +2,12 @@ require_relative 'vector.rb'
 require_relative 'intersection.rb'
 
 class Sphere
-  attr_accessor :position, :radius, :color
+  attr_accessor :position, :radius, :material
 
-  def initialize(position, radius, color)
+  def initialize(position, radius, material)
     @position = position #center(c)
     @radius = radius.to_f
-    @color = color
+    @material = material
   end
 
   def intersection?(ray, t)
@@ -41,5 +41,11 @@ class Sphere
     end
 
     return Intersection.new(t, success)
+  end
+
+  def normal(p)
+    c = @position#center
+    p_c = p.minus(c)#why? Ans: Book pag 77
+    return Vector.new(p_c.x/@radius,p_c.y/@radius,p_c.z/@radius)
   end
 end
