@@ -3,12 +3,12 @@ require_relative 'intersection.rb'
 
 class Triangle
 
-  attr_accessor :a,:b,:c, :color
-  def initialize(a, b, c, color)
+  attr_accessor :a,:b,:c, :material
+  def initialize(a, b, c, material)
     @a = a#vector
     @b = b#vector
     @c = c#vector
-    @color = color
+    @material = material
   end
 
   def determinant(vec_1,vec_2,vec_3)
@@ -39,5 +39,21 @@ class Triangle
     else
       return Intersection.unsuccessful
     end
+  end
+
+  def isLeft?(n)
+    m = n.mod()
+    return n.x/m < 0 && n.y/m < 0 && n.z/m < 0
+  end
+
+  def normal(p)
+    b_a = @b.minus(@a)
+    c_a = @c.minus(@a)
+
+    normal = b_a.vector_product(c_a)
+    if isLeft?(normal)
+      normal = normal.num_product(-1)
+    end
+    return normal
   end
 end
