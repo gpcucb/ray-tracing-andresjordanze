@@ -26,13 +26,13 @@ $ gem install bundler
 Only need to excecute:
 
 ```
-bundle install
+$ bundle install
 ```
 
 ## Running project
 
 ```
-ruby main.rb
+$ ruby main.rb
 ```
 
 ## Authors
