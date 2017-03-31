@@ -5,6 +5,8 @@ require_relative 'rgb.rb'
 require_relative 'intersection.rb'
 require_relative 'sphere.rb'
 require_relative 'triangle.rb'
+require_relative 'light.rb'
+require_relative 'material.rb'
 
 class RayTracer < Renderer
 
@@ -26,16 +28,24 @@ class RayTracer < Renderer
     # Sphere values
     position = Vector.new(370,120,370)
     radius = 120
-    sphere_color = Rgb.new(1.0,0.0,1.0)
+    sphere_diffuse = Rgb.new(1.0, 0.0, 1.0)
+    sphere_specular =Rgb.new(1.0,1.0,1.0)
+    sphere_reflection = 0.5
+    sphere_power = 60
+    sphere_material = Material.new(sphere_diffuse, sphere_reflection, sphere_specular, sphere_power)
 
     # Triangle values
     a = Vector.new(552,8,0)
     b = Vector.new(0,0,0)
     c = Vector.new(0,0,560)
-    triangle_color = Rgb.new(1.0,1.0,0.0)
+    triangle_diffuse = Rgb.new(0.0,0.4,0.0)
+    triangle_specular = Rgb.new(1.0,1.0,1.0)
+    triangle_reflection = 0.5
+    triangle_power = 60
+    triangle_material = Material.new(triangle_diffuse, triangle_reflection, triangle_specular, triangle_power)
 
-    @sphere = Sphere.new(position, radius, sphere_color)
-    @triangle = Triangle.new(a, b, c, triangle_color)
+    @sphere = Sphere.new(position, radius, sphere_material)
+    @triangle = Triangle.new(a, b, c, triangle_material)
     @objects=[]
     @objects << @sphere << @triangle
   end
@@ -46,17 +56,18 @@ class RayTracer < Renderer
     ray = Ray.new(e, dir)
     t = Float::INFINITY
 
-    @obj_int = nil
+    @obj_int = nil#intersected object
     @objects.each do |obj|
       intersection = obj.intersection?(ray, t)
       if intersection.successful?
         @obj_int = obj
+        t = intersection.t
       end
     end
     if @obj_int==nil
       color = Rgb.new(0.0,0.0,0.0)
     else
-      color = @obj_int.color
+      color = @obj_int.material.diffuse #2D
     end
 
     return {red: color.r, green: color.g, blue: color.b}
